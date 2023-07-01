@@ -1,9 +1,5 @@
 package ru.netology;
 
-import com.sun.net.httpserver.HttpExchange;
-
-import java.io.BufferedOutputStream;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
@@ -56,17 +52,8 @@ public class Main {
             out.flush();
         });
 
-        server.addHandler("PUT", "/index.html", (request, out) -> {
-            Path filePath = Path.of(".", "public", "/index.html");
-            out.write((
-                    "HTTP/1.1 200 OK\r\n" +
-                            "Content-Type: " + Files.probeContentType(filePath) + "\r\n" +
-                            "Content-Length: " + Files.size(filePath) + "\r\n" +
-                            "Connection: close\r\n" +
-                            "\r\n"
-            ).getBytes());
-            Files.copy(filePath, out);
-            out.flush();
+        server.addHandler("POST", "/default.html", (request, out) -> {
+            System.out.println("Данные отправлены");
         });
 
         server.serverStart();

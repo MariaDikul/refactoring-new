@@ -2,12 +2,8 @@ package ru.netology;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -30,7 +26,7 @@ public class Server {
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             out.println("Сервер запущен!");
-            final ExecutorService threadPool = Executors.newFixedThreadPool(4);
+            final ExecutorService threadPool = Executors.newFixedThreadPool(64);
             while (true) {
                 threadPool.execute(run(serverSocket));
             }
